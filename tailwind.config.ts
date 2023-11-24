@@ -15,6 +15,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  //component library for tailwind css
+  plugins: [require("daisyui")],
 }
 export default config
