@@ -4,6 +4,7 @@ import { FormEventHandler, useState } from "react"
 import { FiEdit, FiTrash2 } from "react-icons/fi"
 import Modal from "./Modal"
 import { useRouter } from "next/navigation"
+// import { useRouter } from "next/router";
 import { deleteTodo, editTodo } from "@/api"
 
 interface TaskProps {
@@ -23,12 +24,14 @@ const Task: React.FC<TaskProps> = ({task}) => {
       text: taskToEdit
     });
     setModalOpenEdit(false);
+    // router.push(`/task/${task.id}`);
     router.refresh();
   }
 
   const handleDeleteTask = async (id: string) => {
     await deleteTodo(id)
     setModalOpenDelete(false);
+    // router.push("/task");
     router.refresh();
   }
 
@@ -39,6 +42,8 @@ const Task: React.FC<TaskProps> = ({task}) => {
         <td className="flex gap-5">
           {/* edit modal */}
           <FiEdit onClick={() => setModalOpenEdit(true)} cursor='pointer' className="text-blue-500" size={20} />
+
+
           <Modal modalOpen={modalOpenEdit} setModalOpen={setModalOpenEdit}>
             {/* children */}
             <form onSubmit={handleSubmitEdit}>
@@ -57,6 +62,7 @@ const Task: React.FC<TaskProps> = ({task}) => {
           </Modal>
 
           <FiTrash2 onClick={() => setModalOpenDelete(true)} cursor='pointer' className="text-red-500" size={20} />
+
           <Modal modalOpen={modalOpenDelete} setModalOpen={setModalOpenDelete}>
           <h3 className='text-lg text-center'>
             Are you sure, you want to delete this task?
@@ -65,6 +71,7 @@ const Task: React.FC<TaskProps> = ({task}) => {
               <button className='btn' onClick={() => handleDeleteTask(task.id)}>Yes</button>
           </div>
           </Modal>
+          
         </td>
       </tr>
   )
